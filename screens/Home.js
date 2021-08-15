@@ -12,9 +12,10 @@ import Header from "../components/Header";
 import { baseUrl, limiter } from "../config";
 import Character from "../components/Character";
 import Problem from "../components/Problem";
+import AppLoading from "expo-app-loading";
 
 const Home = ({ navigation }) => {
-  const [limit, setLimit] = useState(1111);
+  const [limit, setLimit] = useState(25);
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [characters, setCharacters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,21 +54,12 @@ const Home = ({ navigation }) => {
   }, [characters]);
 
   if (isLoading) {
-    return (
-      <Problem style={styles.problem}>
-        <Image
-          source={require("../assets/spinner.gif")}
-          width={100}
-          height={100}
-          resizeMode="cover"
-        />
-      </Problem>
-    );
+    return <AppLoading />;
   }
   if (error) {
     return (
       <Problem style={styles.problem}>
-        <Text numberOfLines={2} style={style.bigText}>
+        <Text numberOfLines={2} style={styles.bigText}>
           {error}
         </Text>
       </Problem>
@@ -97,6 +89,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     width: "100%",
     alignItems: "center",
+    height: "100%",
+    // paddingBottom: 80,
   },
   touchable: {
     marginVertical: 10,

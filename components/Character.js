@@ -9,16 +9,16 @@ import {
 
 const Character = ({ character, navigation }) => {
   const navigateHandler = () =>
-    navigation.navigate("CharacterProfile", character);
+    navigation.navigate("CharacterProfile", { character });
 
   return (
     <View
       style={{
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 10,
+        marginBottom: 20,
 
-        overflow: "hidden",
+        // overflow: "hidden",
       }}
     >
       <TouchableOpacity
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default Character;
+export default React.memo(Character);

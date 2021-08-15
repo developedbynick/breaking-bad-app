@@ -1,16 +1,14 @@
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/Colors";
-const CharacterProfile = ({ navigation }) => {
-  const img = navigation.getParam("img");
-  const name = navigation.getParam("name");
-  const appearances = navigation.getParam("appearance");
+const CharacterProfile = ({ route }) => {
+  const { character } = route.params;
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={{ flex: 1, backgroundColor: Colors.primary }}>
       <View style={styles.characterContainer}>
         <View>
-          <Image source={{ uri: img }} style={styles.img} />
+          <Image source={{ uri: character.img }} style={styles.img} />
           <Text
             style={{
               ...styles.text,
@@ -19,7 +17,7 @@ const CharacterProfile = ({ navigation }) => {
               fontFamily: "Quicksand-Bold",
             }}
           >
-            {name}
+            {character.name}
           </Text>
         </View>
         <View style={styles.details}>
@@ -29,7 +27,7 @@ const CharacterProfile = ({ navigation }) => {
             <Text style={styles.text}>
               Appearances:{"  "}
               <Text style={{ fontFamily: "Quicksand-Bold" }}>
-                {appearances.join(" · ")}
+                {character.appearance.join(" · ")}
               </Text>
             </Text>
           </View>
@@ -37,8 +35,14 @@ const CharacterProfile = ({ navigation }) => {
           {/* Detail */}
 
           <View style={styles.detail}>
-            <Text style={styles.text}>
-              Nickname: {navigation.getParam("nickname")}
+            <Text style={styles.text}>Nickname: {character.nickname}</Text>
+          </View>
+
+          {/* Detail */}
+
+          <View style={styles.detail}>
+            <Text numberOfLines={1.5} style={styles.text}>
+              Occupations: {character.occupation.join(" , ")}
             </Text>
           </View>
 
@@ -46,22 +50,14 @@ const CharacterProfile = ({ navigation }) => {
 
           <View style={styles.detail}>
             <Text numberOfLines={1.5} style={styles.text}>
-              Occupations: {navigation.getParam("occupation").join(" , ")}
-            </Text>
-          </View>
-
-          {/* Detail */}
-
-          <View style={styles.detail}>
-            <Text numberOfLines={1.5} style={styles.text}>
-              Actor: {navigation.getParam("portrayed")}
+              Actor: {character.portrayed}
             </Text>
           </View>
           {/* Detail */}
 
           <View style={styles.detail}>
             <Text numberOfLines={1.5} style={styles.text}>
-              Status: {navigation.getParam("status")}
+              Status: {character.status}
             </Text>
           </View>
         </View>
@@ -69,11 +65,7 @@ const CharacterProfile = ({ navigation }) => {
     </ScrollView>
   );
 };
-CharacterProfile.navigationOptions = ({ navigation }) => {
-  return {
-    headerTitle: navigation.getParam("name"),
-  };
-};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -87,6 +79,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     alignItems: "center",
+    // paddingBottom: 100,
+
     // justifyContent: "center",
     marginTop: 20,
   },

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Breaking Bad App",
     "slug": "Breaking-Bad-App",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon1.png",
     "splash": {

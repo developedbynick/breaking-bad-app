@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/Splash1.png",
       "resizeMode": "cover",
-      "backgroundColor": "#282c34"
+      "backgroundColor": "#6a7ca3"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -29,6 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "githubUrl": "https://github.com/developedbynick/breaking-bad-app"
   }
 }

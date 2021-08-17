@@ -41,7 +41,7 @@ export default function App() {
           tabBarOptions={{
             style: {
               borderTopWidth: 0,
-              height: 60,
+              minHeight: 60,
             },
             showLabel: false,
             activeTintColor: Colors.secondary,

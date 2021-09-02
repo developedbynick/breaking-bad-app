@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useReducer } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import Colors from "./constants/Colors";
@@ -9,12 +9,11 @@ import { enableScreens } from "react-native-screens";
 // Navigation Packages
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// Contexts
-import { reducerInitalState, ReducerContext } from "./contexts";
-import reducer from "./contexts/reducer";
+// React-Redux
+import { Provider } from "react-redux";
+import { store } from "./store/";
 // Screens and Icons
 import { Ionicons } from "@expo/vector-icons";
-import Favorites from "./screens/Favorites";
 import HomeAndProfileStack from "./components/HomeAndProfileStack";
 import FavoritesAndProfileStack from "./components/FavoritesAndProfileStack";
 // Navigators
@@ -23,8 +22,6 @@ const Tabs = createBottomTabNavigator();
 enableScreens();
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, reducerInitalState);
-
   const [fontsLoaded] = useFonts({
     Quicksand: require("./assets/fonts/Quicksand-Regular.ttf"),
     "Quicksand-SB": require("./assets/fonts/Quicksand-SemiBold.ttf"),
@@ -33,7 +30,7 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />;
 
   return (
-    <ReducerContext.Provider value={{ state, dispatch }}>
+    <Provider store={store}>
       <NavigationContainer>
         <StatusBar style="light" translucent={true} />
 
@@ -102,7 +99,7 @@ export default function App() {
           />
         </Tabs.Navigator>
       </NavigationContainer>
-    </ReducerContext.Provider>
+    </Provider>
   );
 }
 

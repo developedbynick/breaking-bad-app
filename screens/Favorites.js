@@ -8,12 +8,14 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import Colors from "../constants/Colors";
-import { ReducerContext } from "../contexts";
 import BoldText from "../components/BoldText";
 import Character from "../components/Character";
+import { useSelector } from "react-redux";
 const Favorites = ({ navigation }) => {
-  const context = useContext(ReducerContext);
-  if (context.state.favorites.length === 0) {
+  // useSelector
+  const state = useSelector((state) => state);
+  // useDispatch
+  if (state.favorites.length === 0) {
     const stylesInner = StyleSheet.create({
       container: {
         flex: 1,
@@ -65,7 +67,7 @@ const Favorites = ({ navigation }) => {
         </BoldText>
       </View>
       <ScrollView>
-        {context.state.favorites.map((fav) => {
+        {state.favorites.map((fav) => {
           return (
             <Character
               character={fav}

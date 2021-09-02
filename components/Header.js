@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Constants from "expo-constants";
-const Header = ({ filterCharacters }) => {
+import * as ACTIONS from "../store/actions";
+import { useDispatch } from "react-redux";
+const Header = () => {
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
   const placeholderText = `Search For A Specific Character!`;
   const onChangeTextHandler = (text) => {
     setQuery(text);
-    filterCharacters(text);
+    dispatch({ type: ACTIONS.FILTER_CHARACTERS, query: text.trim() });
   };
   return (
     <View style={styles.header}>

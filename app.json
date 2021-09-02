@@ -2,7 +2,7 @@
   "expo": {
     "name": "Breaking Bad App",
     "slug": "Breaking-Bad-App",
-    "version": "1.1.2",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon1.png",
     "splash": {
@@ -29,7 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "",
+    "description": "The app where you can find, search, filter and favorite breaking bad characters.",
     "githubUrl": "https://github.com/developedbynick/breaking-bad-app"
   }
 }

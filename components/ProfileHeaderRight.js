@@ -1,34 +1,32 @@
-import React, { useState, useEffect, useContext } from "react";
-import { ReducerContext } from "../contexts";
-import { ACTIONS } from "../contexts/reducer";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
+import * as ACTIONS from "../store/actions";
 const ProfileHeaderRight = ({ route }) => {
-  const context = useContext(ReducerContext);
-
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const { character } = route.params;
   const { char_id } = character;
   const [starred, setStarred] = useState(false);
   const toggleStar = () => setStarred(!starred);
   useEffect(() => {
-    const isCharacterFavorited = context.state.favorites.some(
+    const isCharacterFavorited = state.favorites.some(
       (fav) => fav.char_id === char_id
     );
     if (isCharacterFavorited) setStarred(true);
     else setStarred(false);
-  }, [context.state.favorites.length]);
+  }, [state.favorites.length]);
 
   const toggleFavorites = () => {
     if (starred) {
       // If character is already starred, we should setStarred to false, and remove character from favorites
       toggleStar();
-      const newFavs = context.state.favorites.filter(
-        (fav) => fav.char_id !== char_id
-      );
-      context.dispatch({ type: ACTIONS.REMOVE_FAVORITE, newFavs });
+      const newFavs = state.favorites.filter((fav) => fav.char_id !== char_id);
+      dispatch({ type: ACTIONS.REMOVE_FAVORITE, newFavs });
     } else {
       toggleStar();
-      context.dispatch({ type: ACTIONS.ADD_FAVORITE, character });
+      dispatch({ type: ACTIONS.ADD_FAVORITE, character });
     }
   };
   return (

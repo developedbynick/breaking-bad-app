@@ -1,10 +1,8 @@
-import { TouchableOpacity, View, Text } from "react-native";
 import Home from "../screens/Home";
 import CharacterProfile from "../screens/CharacterProfile";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../constants/Colors";
-import { Ionicons } from "@expo/vector-icons";
 import ProfileHeaderRight from "./ProfileHeaderRight";
 const Stack = createStackNavigator();
 

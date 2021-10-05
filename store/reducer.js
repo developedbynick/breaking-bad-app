@@ -31,7 +31,10 @@ const reducer = (state = initalState, action) => {
     const filteredCharacters = state.characters.filter((character) =>
       character.name.toLowerCase().includes(query)
     );
-    console.log(filteredCharacters);
+    return{
+      ...state,
+      filteredCharacters
+    }
   }
   if (action.type === ACTIONS.ADD_FAVORITE) {
     return {

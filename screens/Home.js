@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -16,10 +16,16 @@ import AppLoading from "expo-app-loading";
 import { useSelector, useDispatch } from "react-redux";
 import * as ACTIONS from "../store/actions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Pagination from "../components/Pagination";
 const Home = ({ navigation }) => {
   // useSelector
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  const limit = 9;
+  const charsPerPage = Math.floor(state.filteredCharacters.length / limit) || 1;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
   const filterCharacters = (query) => {
     query = query.toLowerCase().trim();
     if (!query) {
@@ -27,6 +33,7 @@ const Home = ({ navigation }) => {
       return;
     }
     dispatch({ type: ACTIONS.FILTER_CHARACTERS, query });
+    setPage(1);
     // () => {
     //   return state.characters.filter((char) =>
     //     char.name.toLowerCase().includes(query)
@@ -51,7 +58,7 @@ const Home = ({ navigation }) => {
   }, []);
   const fetchData = async () => {
     try {
-      const res = await fetch(baseUrl + limiter + 25);
+      const res = await fetch(baseUrl + limiter + 9999);
       if (!res.ok)
         throw new Error(`There was an error. StatusCode: ${res.status}`);
       const data = await res.json();
@@ -104,7 +111,7 @@ const Home = ({ navigation }) => {
         </View>
       ) : (
         <FlatList
-          data={state.filteredCharacters}
+          data={state.filteredCharacters.slice(startIndex, endIndex)}
           keyExtractor={(item) => item.char_id.toString()}
           initialNumToRender={2}
           style={{ width: "100%" }}
@@ -113,6 +120,7 @@ const Home = ({ navigation }) => {
           )}
         />
       )}
+      <Pagination charsPerPage={charsPerPage} page={page} setPage={setPage} />
     </View>
   );
 };
